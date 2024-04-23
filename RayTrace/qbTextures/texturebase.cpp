@@ -2,13 +2,13 @@
 #include <cmath>
 
 // Constructor / destructor.
-qbRT::Texture::TextureBase::TextureBase() {}
+RT::Texture::TextureBase::TextureBase() {}
 
-qbRT::Texture::TextureBase::~TextureBase() {}
+RT::Texture::TextureBase::~TextureBase() {}
 
 // Function to return the color at a given (U,V) location.
 qbVector<double>
-qbRT::Texture::TextureBase::GetColor(const qbVector<double>& uvCoords)
+RT::Texture::TextureBase::GetColor(const qbVector<double>& uvCoords)
 {
   // Setup the output vector.
   qbVector<double> outputColor{4};
@@ -18,9 +18,9 @@ qbRT::Texture::TextureBase::GetColor(const qbVector<double>& uvCoords)
 }
 
 // Function to set the transform matrix.
-void qbRT::Texture::TextureBase::SetTransform(
-    const qbVector<double>& translation, const double& rotation,
-    const qbVector<double>& scale)
+void RT::Texture::TextureBase::SetTransform(const qbVector<double>& translation,
+                                            const double& rotation,
+                                            const qbVector<double>& scale)
 {
   // Build the transform matrix.
   qbMatrix2<double> rotationMatrix = {
@@ -43,7 +43,7 @@ void qbRT::Texture::TextureBase::SetTransform(
 }
 
 // Function to blend colors.
-qbVector<double> qbRT::Texture::TextureBase::BlendColors(
+qbVector<double> RT::Texture::TextureBase::BlendColors(
     const std::vector<qbVector<double>>& inputColorList)
 {
   // Setup the output color.
@@ -55,7 +55,7 @@ qbVector<double> qbRT::Texture::TextureBase::BlendColors(
 
 // Function to apply the transform.
 qbVector<double>
-qbRT::Texture::TextureBase::ApplyTransform(const qbVector<double>& inputVector)
+RT::Texture::TextureBase::ApplyTransform(const qbVector<double>& inputVector)
 {
   // Copy the input vector and modify to have three elements.
   qbVector<double> newInput{3};

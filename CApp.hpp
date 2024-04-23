@@ -29,7 +29,7 @@ private:
   Image m_image;
 
   // An instance of the scene class.
-  qbRT::Scene m_scene;
+  RT::Scene m_scene;
 
   // SDL2 stuff.
   bool isRunning;

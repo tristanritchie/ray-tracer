@@ -5,7 +5,7 @@
 #include "./qbLinAlg/qbVector.h"
 #include "ray.hpp"
 
-namespace qbRT
+namespace RT
 {
 // Define direction flag values.
 constexpr bool FWDTFORM = true;
@@ -35,11 +35,11 @@ public:
   qbMatrix2<double> GetBackward();
 
   // Function to apply the transform.
-  qbRT::Ray Apply(const qbRT::Ray& inputRay, bool dirFlag);
+  RT::Ray Apply(const RT::Ray& inputRay, bool dirFlag);
   qbVector<double> Apply(const qbVector<double>& inputVector, bool dirFlag);
 
   // Overload operators.
-  friend GTform operator*(const qbRT::GTform& lhs, const qbRT::GTform& rhs);
+  friend GTform operator*(const RT::GTform& lhs, const RT::GTform& rhs);
 
   // Overload the assignment operator.
   GTform operator=(const GTform& rhs);
@@ -57,6 +57,6 @@ private:
   qbMatrix2<double> m_fwdtfm{4, 4};
   qbMatrix2<double> m_bcktfm{4, 4};
 };
-} // namespace qbRT
+} // namespace RT
 
 #endif

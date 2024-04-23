@@ -1,21 +1,21 @@
 #include "materialbase.hpp"
 
 // Constructor / destructor.
-qbRT::MaterialBase::MaterialBase()
+RT::MaterialBase::MaterialBase()
 {
   m_maxReflectionRays = 3;
   m_reflectionRayCount = 0;
 }
 
-qbRT::MaterialBase::~MaterialBase() {}
+RT::MaterialBase::~MaterialBase() {}
 
 // Function to compute the color of the material.
-qbVector<double> qbRT::MaterialBase::ComputeColor(
-    const std::vector<std::shared_ptr<qbRT::ObjectBase>>& objectList,
-    const std::vector<std::shared_ptr<qbRT::LightBase>>& lightList,
-    const std::shared_ptr<qbRT::ObjectBase>& currentObject,
+qbVector<double> RT::MaterialBase::ComputeColor(
+    const std::vector<std::shared_ptr<RT::ObjectBase>>& objectList,
+    const std::vector<std::shared_ptr<RT::LightBase>>& lightList,
+    const std::shared_ptr<RT::ObjectBase>& currentObject,
     const qbVector<double>& intPoint, const qbVector<double>& localNormal,
-    const qbRT::Ray& cameraRay)
+    const RT::Ray& cameraRay)
 {
   // Define an initial material color.
   qbVector<double> matColor{3};
@@ -24,10 +24,10 @@ qbVector<double> qbRT::MaterialBase::ComputeColor(
 }
 
 // Function to compute the diffuse color.
-qbVector<double> qbRT::MaterialBase::ComputeDiffuseColor(
-    const std::vector<std::shared_ptr<qbRT::ObjectBase>>& objectList,
-    const std::vector<std::shared_ptr<qbRT::LightBase>>& lightList,
-    const std::shared_ptr<qbRT::ObjectBase>& currentObject,
+qbVector<double> RT::MaterialBase::ComputeDiffuseColor(
+    const std::vector<std::shared_ptr<RT::ObjectBase>>& objectList,
+    const std::vector<std::shared_ptr<RT::LightBase>>& lightList,
+    const std::shared_ptr<RT::ObjectBase>& currentObject,
     const qbVector<double>& intPoint, const qbVector<double>& localNormal,
     const qbVector<double>& baseColor)
 {
@@ -73,12 +73,12 @@ qbVector<double> qbRT::MaterialBase::ComputeDiffuseColor(
 }
 
 // Function to compute the color due to reflection.
-qbVector<double> qbRT::MaterialBase::ComputeReflectionColor(
-    const std::vector<std::shared_ptr<qbRT::ObjectBase>>& objectList,
-    const std::vector<std::shared_ptr<qbRT::LightBase>>& lightList,
-    const std::shared_ptr<qbRT::ObjectBase>& currentObject,
+qbVector<double> RT::MaterialBase::ComputeReflectionColor(
+    const std::vector<std::shared_ptr<RT::ObjectBase>>& objectList,
+    const std::vector<std::shared_ptr<RT::LightBase>>& lightList,
+    const std::shared_ptr<RT::ObjectBase>& currentObject,
     const qbVector<double>& intPoint, const qbVector<double>& localNormal,
-    const qbRT::Ray& incidentRay)
+    const RT::Ray& incidentRay)
 {
   qbVector<double> reflectionColor{3};
 
@@ -88,11 +88,11 @@ qbVector<double> qbRT::MaterialBase::ComputeReflectionColor(
       d - (2 * qbVector<double>::dot(d, localNormal) * localNormal);
 
   // Construct the reflection ray.
-  qbRT::Ray reflectionRay(intPoint, intPoint + reflectionVector);
+  RT::Ray reflectionRay(intPoint, intPoint + reflectionVector);
 
   /* Cast this ray into the scene and find the closest object that it intersects
    * with. */
-  std::shared_ptr<qbRT::ObjectBase> closestObject;
+  std::shared_ptr<RT::ObjectBase> closestObject;
   qbVector<double> closestIntPoint{3};
   qbVector<double> closestLocalNormal{3};
   qbVector<double> closestLocalColor{3};
@@ -118,7 +118,7 @@ qbVector<double> qbRT::MaterialBase::ComputeReflectionColor(
     }
     else
     {
-      matColor = qbRT::MaterialBase::ComputeDiffuseColor(
+      matColor = RT::MaterialBase::ComputeDiffuseColor(
           objectList, lightList, closestObject, closestIntPoint,
           closestLocalNormal, closestObject->m_baseColor);
     }
@@ -133,11 +133,11 @@ qbVector<double> qbRT::MaterialBase::ComputeReflectionColor(
 }
 
 // Function to cast a ray into the scene.
-bool qbRT::MaterialBase::CastRay(
-    const qbRT::Ray& castRay,
-    const std::vector<std::shared_ptr<qbRT::ObjectBase>>& objectList,
-    const std::shared_ptr<qbRT::ObjectBase>& thisObject,
-    std::shared_ptr<qbRT::ObjectBase>& closestObject,
+bool RT::MaterialBase::CastRay(
+    const RT::Ray& castRay,
+    const std::vector<std::shared_ptr<RT::ObjectBase>>& objectList,
+    const std::shared_ptr<RT::ObjectBase>& thisObject,
+    std::shared_ptr<RT::ObjectBase>& closestObject,
     qbVector<double>& closestIntPoint, qbVector<double>& closestLocalNormal,
     qbVector<double>& closestLocalColor)
 {
@@ -181,8 +181,8 @@ bool qbRT::MaterialBase::CastRay(
 }
 
 // Function to assign a texture.
-void qbRT::MaterialBase::AssignTexture(
-    const std::shared_ptr<qbRT::Texture::TextureBase>& inputTexture)
+void RT::MaterialBase::AssignTexture(
+    const std::shared_ptr<RT::Texture::TextureBase>& inputTexture)
 {
   m_textureList.push_back(inputTexture);
   m_hasTexture = true;

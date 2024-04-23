@@ -4,7 +4,7 @@
 #include "../gtfm.hpp"
 #include "objectbase.hpp"
 
-namespace qbRT
+namespace RT
 {
 class ObjSphere : public ObjectBase
 {
@@ -17,13 +17,13 @@ public:
   virtual ~ObjSphere() override;
 
   // Override the function to test for intersections.
-  virtual bool TestIntersection(const qbRT::Ray& castRay,
+  virtual bool TestIntersection(const RT::Ray& castRay,
                                 qbVector<double>& intPoint,
                                 qbVector<double>& localNormal,
                                 qbVector<double>& localColor) override;
 
 private:
 };
-} // namespace qbRT
+} // namespace RT
 
 #endif

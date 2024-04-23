@@ -25,7 +25,7 @@
 
 #include "lightbase.hpp"
 
-namespace qbRT
+namespace RT
 {
 class PointLight : public LightBase
 {
@@ -39,10 +39,10 @@ public:
   // Function to compute illumination.
   virtual bool ComputeIllumination(
       const qbVector<double>& intPoint, const qbVector<double>& localNormal,
-      const std::vector<std::shared_ptr<qbRT::ObjectBase>>& objectList,
-      const std::shared_ptr<qbRT::ObjectBase>& currentObject,
+      const std::vector<std::shared_ptr<RT::ObjectBase>>& objectList,
+      const std::shared_ptr<RT::ObjectBase>& currentObject,
       qbVector<double>& color, double& intensity) override;
 };
-} // namespace qbRT
+} // namespace RT
 
 #endif

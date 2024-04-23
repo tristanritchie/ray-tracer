@@ -2,7 +2,7 @@
 #include "ray.hpp"
 #include <math.h>
 
-qbRT::Camera::Camera()
+RT::Camera::Camera()
 {
   // The default constructor.
   m_cameraPosition = qbVector<double>{std::vector<double>{0.0, -10.0, 0.0}};
@@ -13,65 +13,65 @@ qbRT::Camera::Camera()
   m_cameraAspectRatio = 1.0;
 }
 
-void qbRT::Camera::SetPosition(const qbVector<double>& newPosition)
+void RT::Camera::SetPosition(const qbVector<double>& newPosition)
 {
   m_cameraPosition = newPosition;
 }
 
-void qbRT::Camera::SetLookAt(const qbVector<double>& newLookAt)
+void RT::Camera::SetLookAt(const qbVector<double>& newLookAt)
 {
   m_cameraLookAt = newLookAt;
 }
 
-void qbRT::Camera::SetUp(const qbVector<double>& upVector)
+void RT::Camera::SetUp(const qbVector<double>& upVector)
 {
   m_cameraUp = upVector;
 }
 
-void qbRT::Camera::SetLength(double newLength) { m_cameraLength = newLength; }
+void RT::Camera::SetLength(double newLength) { m_cameraLength = newLength; }
 
-void qbRT::Camera::SetHorzSize(double newHorzSize)
+void RT::Camera::SetHorzSize(double newHorzSize)
 {
   m_cameraHorzSize = newHorzSize;
 }
 
-void qbRT::Camera::SetAspect(double newAspect)
+void RT::Camera::SetAspect(double newAspect)
 {
   m_cameraAspectRatio = newAspect;
 }
 
 // Method to return the position of the camera.
-qbVector<double> qbRT::Camera::GetPosition() { return m_cameraPosition; }
+qbVector<double> RT::Camera::GetPosition() { return m_cameraPosition; }
 
 // Method to return the LookAt of the camera.
-qbVector<double> qbRT::Camera::GetLookAt() { return m_cameraLookAt; }
+qbVector<double> RT::Camera::GetLookAt() { return m_cameraLookAt; }
 
 // Method to return the up vector of the camera.
-qbVector<double> qbRT::Camera::GetUp() { return m_cameraUp; }
+qbVector<double> RT::Camera::GetUp() { return m_cameraUp; }
 
 // Method to return the length of the camera.
-double qbRT::Camera::GetLength() { return m_cameraLength; }
+double RT::Camera::GetLength() { return m_cameraLength; }
 
 // Method to return the horizontal size.
-double qbRT::Camera::GetHorzSize() { return m_cameraHorzSize; }
+double RT::Camera::GetHorzSize() { return m_cameraHorzSize; }
 
 // Method to return the camera aspect ratio.
-double qbRT::Camera::GetAspect() { return m_cameraAspectRatio; }
+double RT::Camera::GetAspect() { return m_cameraAspectRatio; }
 
 // Method to return the U vector.
-qbVector<double> qbRT::Camera::GetU() { return m_projectionScreenU; }
+qbVector<double> RT::Camera::GetU() { return m_projectionScreenU; }
 
 // Method to return the V vector.
-qbVector<double> qbRT::Camera::GetV() { return m_projectionScreenV; }
+qbVector<double> RT::Camera::GetV() { return m_projectionScreenV; }
 
 // Method to return the projection screen centre.
-qbVector<double> qbRT::Camera::GetScreenCentre()
+qbVector<double> RT::Camera::GetScreenCentre()
 {
   return m_projectionScreenCentre;
 }
 
 // Function to compute camera geometry.
-void qbRT::Camera::UpdateCameraGeometry()
+void RT::Camera::UpdateCameraGeometry()
 {
   // First, compute the vector from the camera position to the LookAt position.
   m_alignmentVector = m_cameraLookAt - m_cameraPosition;
@@ -94,8 +94,8 @@ void qbRT::Camera::UpdateCameraGeometry()
       m_projectionScreenV * (m_cameraHorzSize / m_cameraAspectRatio);
 }
 
-bool qbRT::Camera::GenerateRay(float proScreenX, float proScreenY,
-                               qbRT::Ray& cameraRay)
+bool RT::Camera::GenerateRay(float proScreenX, float proScreenY,
+                             RT::Ray& cameraRay)
 {
   // Compute the location of the screen point in world coordinates.
   qbVector<double> screenWorldPart1 =

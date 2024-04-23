@@ -6,7 +6,7 @@
 #include "../ray.hpp"
 #include <memory>
 
-namespace qbRT
+namespace RT
 {
 namespace Texture
 {
@@ -39,6 +39,6 @@ private:
       3, 3, std::vector<double>{1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0}};
 };
 } // namespace Texture
-} // namespace qbRT
+} // namespace RT
 
 #endif

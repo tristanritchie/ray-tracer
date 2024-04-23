@@ -4,7 +4,7 @@
 #include "./qbLinAlg/qbVector.h"
 #include "ray.hpp"
 
-namespace qbRT
+namespace RT
 {
 class Camera
 {
@@ -32,7 +32,7 @@ public:
   double GetAspect();
 
   // Function to generate a ray.
-  bool GenerateRay(float proScreenX, float proScreenY, qbRT::Ray& cameraRay);
+  bool GenerateRay(float proScreenX, float proScreenY, RT::Ray& cameraRay);
 
   // Function to update the camera geometry.
   void UpdateCameraGeometry();
@@ -50,6 +50,6 @@ private:
   qbVector<double> m_projectionScreenV{3};
   qbVector<double> m_projectionScreenCentre{3};
 };
-} // namespace qbRT
+} // namespace RT
 
 #endif

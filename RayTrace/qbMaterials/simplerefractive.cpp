@@ -1,16 +1,16 @@
 #include "simplerefractive.hpp"
 
-qbRT::SimpleRefractive::SimpleRefractive() {}
+RT::SimpleRefractive::SimpleRefractive() {}
 
-qbRT::SimpleRefractive::~SimpleRefractive() {}
+RT::SimpleRefractive::~SimpleRefractive() {}
 
 // Function to return the color.
-qbVector<double> qbRT::SimpleRefractive::ComputeColor(
-    const std::vector<std::shared_ptr<qbRT::ObjectBase>>& objectList,
-    const std::vector<std::shared_ptr<qbRT::LightBase>>& lightList,
-    const std::shared_ptr<qbRT::ObjectBase>& currentObject,
+qbVector<double> RT::SimpleRefractive::ComputeColor(
+    const std::vector<std::shared_ptr<RT::ObjectBase>>& objectList,
+    const std::vector<std::shared_ptr<RT::LightBase>>& lightList,
+    const std::shared_ptr<RT::ObjectBase>& currentObject,
     const qbVector<double>& intPoint, const qbVector<double>& localNormal,
-    const qbRT::Ray& cameraRay)
+    const RT::Ray& cameraRay)
 {
   // Define the initial material colors.
   qbVector<double> matColor{3};
@@ -56,12 +56,12 @@ qbVector<double> qbRT::SimpleRefractive::ComputeColor(
 }
 
 // Function to compute the color due to translucency.
-qbVector<double> qbRT::SimpleRefractive::ComputeTranslucency(
-    const std::vector<std::shared_ptr<qbRT::ObjectBase>>& objectList,
-    const std::vector<std::shared_ptr<qbRT::LightBase>>& lightList,
-    const std::shared_ptr<qbRT::ObjectBase>& currentObject,
+qbVector<double> RT::SimpleRefractive::ComputeTranslucency(
+    const std::vector<std::shared_ptr<RT::ObjectBase>>& objectList,
+    const std::vector<std::shared_ptr<RT::LightBase>>& lightList,
+    const std::shared_ptr<RT::ObjectBase>& currentObject,
     const qbVector<double>& intPoint, const qbVector<double>& localNormal,
-    const qbRT::Ray& incidentRay)
+    const RT::Ray& incidentRay)
 {
   qbVector<double> trnColor{3};
 
@@ -82,11 +82,11 @@ qbVector<double> qbRT::SimpleRefractive::ComputeTranslucency(
       (r * c - sqrtf(1.0 - pow(r, 2.0) * (1.0 - pow(c, 2.0)))) * tempNormal;
 
   // Construct the refracted ray.
-  qbRT::Ray refractedRay(intPoint + (refractedVector * 0.01),
-                         intPoint + refractedVector);
+  RT::Ray refractedRay(intPoint + (refractedVector * 0.01),
+                       intPoint + refractedVector);
 
   // Test for secondary intersection with this object.
-  std::shared_ptr<qbRT::ObjectBase> closestObject;
+  std::shared_ptr<RT::ObjectBase> closestObject;
   qbVector<double> closestIntPoint{3};
   qbVector<double> closestLocalNormal{3};
   qbVector<double> closestLocalColor{3};
@@ -96,7 +96,7 @@ qbVector<double> qbRT::SimpleRefractive::ComputeTranslucency(
   bool test = currentObject->TestIntersection(refractedRay, newIntPoint,
                                               newLocalNormal, newLocalColor);
   bool intersectionFound = false;
-  qbRT::Ray finalRay;
+  RT::Ray finalRay;
   if (test)
   {
     // Compute the refracted vector.
@@ -115,8 +115,8 @@ qbVector<double> qbRT::SimpleRefractive::ComputeTranslucency(
                       tempNormal2;
 
     // Compute the refracted ray.
-    qbRT::Ray refractedRay2(newIntPoint + (refractedVector2 * 0.01),
-                            newIntPoint + refractedVector2);
+    RT::Ray refractedRay2(newIntPoint + (refractedVector2 * 0.01),
+                          newIntPoint + refractedVector2);
 
     // Cast this ray into the scene.
     intersectionFound =
@@ -147,7 +147,7 @@ qbVector<double> qbRT::SimpleRefractive::ComputeTranslucency(
     }
     else
     {
-      matColor = qbRT::MaterialBase::ComputeDiffuseColor(
+      matColor = RT::MaterialBase::ComputeDiffuseColor(
           objectList, lightList, closestObject, closestIntPoint,
           closestLocalNormal, closestObject->m_baseColor);
     }
@@ -162,11 +162,11 @@ qbVector<double> qbRT::SimpleRefractive::ComputeTranslucency(
 }
 
 // Function to compute the specular highlights.
-qbVector<double> qbRT::SimpleRefractive::ComputeSpecular(
-    const std::vector<std::shared_ptr<qbRT::ObjectBase>>& objectList,
-    const std::vector<std::shared_ptr<qbRT::LightBase>>& lightList,
+qbVector<double> RT::SimpleRefractive::ComputeSpecular(
+    const std::vector<std::shared_ptr<RT::ObjectBase>>& objectList,
+    const std::vector<std::shared_ptr<RT::LightBase>>& lightList,
     const qbVector<double>& intPoint, const qbVector<double>& localNormal,
-    const qbRT::Ray& cameraRay)
+    const RT::Ray& cameraRay)
 {
   qbVector<double> spcColor{3};
   double red = 0.0;
@@ -187,7 +187,7 @@ qbVector<double> qbRT::SimpleRefractive::ComputeSpecular(
     qbVector<double> startPoint = intPoint + (lightDir * 0.001);
 
     // Construct a ray from the point of intersection to the light.
-    qbRT::Ray lightRay(startPoint, startPoint + lightDir);
+    RT::Ray lightRay(startPoint, startPoint + lightDir);
 
     /* Loop through all objects in the scene to check if any
             obstruct light from this source. */

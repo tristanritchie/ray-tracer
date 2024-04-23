@@ -2,19 +2,19 @@
 #include <cmath>
 
 // The default constructor.
-qbRT::ObjSphere::ObjSphere() {}
+RT::ObjSphere::ObjSphere() {}
 
 // The destructor.
-qbRT::ObjSphere::~ObjSphere() {}
+RT::ObjSphere::~ObjSphere() {}
 
 // Function to test for intersections.
-bool qbRT::ObjSphere::TestIntersection(const qbRT::Ray& castRay,
-                                       qbVector<double>& intPoint,
-                                       qbVector<double>& localNormal,
-                                       qbVector<double>& localColor)
+bool RT::ObjSphere::TestIntersection(const RT::Ray& castRay,
+                                     qbVector<double>& intPoint,
+                                     qbVector<double>& localNormal,
+                                     qbVector<double>& localColor)
 {
   // Copy the ray and apply the backwards transform.
-  qbRT::Ray bckRay = m_transformMatrix.Apply(castRay, qbRT::BCKTFORM);
+  RT::Ray bckRay = m_transformMatrix.Apply(castRay, RT::BCKTFORM);
 
   // Compute the values of a, b and c.
   qbVector<double> vhat = bckRay.m_lab;
@@ -88,13 +88,13 @@ bool qbRT::ObjSphere::TestIntersection(const qbRT::Ray& castRay,
       }
 
       // Transform the intersection point back into world coordinates.
-      intPoint = m_transformMatrix.Apply(poi, qbRT::FWDTFORM);
+      intPoint = m_transformMatrix.Apply(poi, RT::FWDTFORM);
 
       // Compute the local normal (easy for a sphere at the origin!).
       qbVector<double> objOrigin =
           qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}};
       qbVector<double> newObjOrigin =
-          m_transformMatrix.Apply(objOrigin, qbRT::FWDTFORM);
+          m_transformMatrix.Apply(objOrigin, RT::FWDTFORM);
       localNormal = intPoint - newObjOrigin;
       localNormal.Normalize();
 

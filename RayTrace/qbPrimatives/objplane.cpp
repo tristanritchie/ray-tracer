@@ -2,19 +2,19 @@
 #include <cmath>
 
 // The default constructor.
-qbRT::ObjPlane::ObjPlane() {}
+RT::ObjPlane::ObjPlane() {}
 
 // The destructor.
-qbRT::ObjPlane::~ObjPlane() {}
+RT::ObjPlane::~ObjPlane() {}
 
 // The function to test for intersections.
-bool qbRT::ObjPlane::TestIntersection(const qbRT::Ray& castRay,
-                                      qbVector<double>& intPoint,
-                                      qbVector<double>& localNormal,
-                                      qbVector<double>& localColor)
+bool RT::ObjPlane::TestIntersection(const RT::Ray& castRay,
+                                    qbVector<double>& intPoint,
+                                    qbVector<double>& localNormal,
+                                    qbVector<double>& localColor)
 {
   // Copy the ray and apply the backwards transform.
-  qbRT::Ray bckRay = m_transformMatrix.Apply(castRay, qbRT::BCKTFORM);
+  RT::Ray bckRay = m_transformMatrix.Apply(castRay, RT::BCKTFORM);
 
   // Copy the m_lab vector from bckRay and normalize it.
   qbVector<double> k = bckRay.m_lab;
@@ -43,15 +43,15 @@ bool qbRT::ObjPlane::TestIntersection(const qbRT::Ray& castRay,
         qbVector<double> poi = bckRay.m_point1 + t * k;
 
         // Transform the intersection point back into world coordinates.
-        intPoint = m_transformMatrix.Apply(poi, qbRT::FWDTFORM);
+        intPoint = m_transformMatrix.Apply(poi, RT::FWDTFORM);
 
         // Compute the local normal.
         qbVector<double> localOrigin{std::vector<double>{0.0, 0.0, 0.0}};
         qbVector<double> normalVector{std::vector<double>{0.0, 0.0, -1.0}};
         qbVector<double> globalOrigin =
-            m_transformMatrix.Apply(localOrigin, qbRT::FWDTFORM);
-        localNormal = m_transformMatrix.Apply(normalVector, qbRT::FWDTFORM) -
-                      globalOrigin;
+            m_transformMatrix.Apply(localOrigin, RT::FWDTFORM);
+        localNormal =
+            m_transformMatrix.Apply(normalVector, RT::FWDTFORM) - globalOrigin;
         localNormal.Normalize();
 
         // Return the base color.

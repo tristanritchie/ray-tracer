@@ -6,7 +6,7 @@
 #include "../ray.hpp"
 #include <memory>
 
-namespace qbRT
+namespace RT
 {
 class LightBase
 {
@@ -18,8 +18,8 @@ public:
   // Function to compute illumination contribution.
   virtual bool ComputeIllumination(
       const qbVector<double>& intPoint, const qbVector<double>& localNormal,
-      const std::vector<std::shared_ptr<qbRT::ObjectBase>>& objectList,
-      const std::shared_ptr<qbRT::ObjectBase>& currentObject,
+      const std::vector<std::shared_ptr<RT::ObjectBase>>& objectList,
+      const std::shared_ptr<RT::ObjectBase>& currentObject,
       qbVector<double>& color, double& intensity);
 
 public:
@@ -27,6 +27,6 @@ public:
   qbVector<double> m_location{3};
   double m_intensity;
 };
-} // namespace qbRT
+} // namespace RT
 
 #endif

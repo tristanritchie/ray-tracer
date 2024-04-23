@@ -12,7 +12,7 @@
 #include <memory>
 #include <vector>
 
-namespace qbRT
+namespace RT
 {
 class Scene
 {
@@ -24,8 +24,7 @@ public:
   bool Render(Image& outputImage);
 
   // Function to cast a ray into the scene.
-  bool CastRay(qbRT::Ray& castRay,
-               std::shared_ptr<qbRT::ObjectBase>& closestObject,
+  bool CastRay(RT::Ray& castRay, std::shared_ptr<RT::ObjectBase>& closestObject,
                qbVector<double>& closestIntPoint,
                qbVector<double>& closestLocalNormal,
                qbVector<double>& closestLocalColor);
@@ -35,14 +34,14 @@ private:
   // Private members.
 private:
   // The camera that we will use.
-  qbRT::Camera m_camera;
+  RT::Camera m_camera;
 
   // The list of objects in the scene.
-  std::vector<std::shared_ptr<qbRT::ObjectBase>> m_objectList;
+  std::vector<std::shared_ptr<RT::ObjectBase>> m_objectList;
 
   // The list of lights in the scene.
-  std::vector<std::shared_ptr<qbRT::LightBase>> m_lightList;
+  std::vector<std::shared_ptr<RT::LightBase>> m_lightList;
 };
-} // namespace qbRT
+} // namespace RT
 
 #endif

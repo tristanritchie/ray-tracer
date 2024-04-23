@@ -4,7 +4,7 @@
 #include "texturebase.hpp"
 #include <SDL2/SDL.h>
 
-namespace qbRT
+namespace RT
 {
 namespace Texture
 {
@@ -30,6 +30,6 @@ private:
   uint32_t m_rMask, m_gMask, m_bMask, m_aMask;
 };
 } // namespace Texture
-} // namespace qbRT
+} // namespace RT
 
 #endif

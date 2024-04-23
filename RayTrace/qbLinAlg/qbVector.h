@@ -78,11 +78,6 @@ private:
   int m_nDims;
 };
 
-/* **************************************************************************************************
-CONSTRUCTOR / DESTRUCTOR FUNCTIONS
-/*
-*************************************************************************************************/
-// The default constructor.
 template <class T>
 qbVector<T>::qbVector()
 {
@@ -110,20 +105,12 @@ qbVector<T>::~qbVector()
   // For now, we don't need to do anything in the destructor.
 }
 
-/* **************************************************************************************************
-FUNCTIONS TO RETURN PARAMETERS
-/*
-*************************************************************************************************/
 template <class T>
 int qbVector<T>::GetNumDims() const
 {
   return m_nDims;
 }
 
-/* **************************************************************************************************
-FUNCTIONS TO HANDLE ELEMENTS OF THE VECTOR
-/*
-*************************************************************************************************/
 template <class T>
 T qbVector<T>::GetElement(int index) const
 {
@@ -136,10 +123,6 @@ void qbVector<T>::SetElement(int index, T value)
   m_vectorData[index] = value;
 }
 
-/* **************************************************************************************************
-FUNCTIONS TO PERFORM COMPUTATIONS ON THE VECTOR
-/*
-*************************************************************************************************/
 // Compute the length of the vector,known as the 'norm'.
 template <class T>
 T qbVector<T>::norm()
@@ -178,10 +161,6 @@ void qbVector<T>::Normalize()
   }
 }
 
-/* **************************************************************************************************
-OVERLOADED OPERATORS
-/*
-*************************************************************************************************/
 template <class T>
 qbVector<T> qbVector<T>::operator+(const qbVector<T>& rhs) const
 {
@@ -224,10 +203,6 @@ qbVector<T> qbVector<T>::operator*(const T& rhs) const
   return result;
 }
 
-/* **************************************************************************************************
-FRIEND FUNCTIONS
-/*
-*************************************************************************************************/
 template <class T>
 qbVector<T> operator*(const T& lhs, const qbVector<T>& rhs)
 {
@@ -240,10 +215,6 @@ qbVector<T> operator*(const T& lhs, const qbVector<T>& rhs)
   return result;
 }
 
-/* **************************************************************************************************
-STATIC FUNCTIONS
-/*
-*************************************************************************************************/
 template <class T>
 T qbVector<T>::dot(const qbVector<T>& a, const qbVector<T>& b)
 {

@@ -1,9 +1,9 @@
 #include "image.hpp"
 
 // Constructor / destructor.
-qbRT::Texture::Image::Image() {}
+RT::Texture::Image::Image() {}
 
-qbRT::Texture::Image::~Image()
+RT::Texture::Image::~Image()
 {
   if (m_imageLoaded)
   {
@@ -13,8 +13,7 @@ qbRT::Texture::Image::~Image()
   }
 }
 
-qbVector<double>
-qbRT::Texture::Image::GetColor(const qbVector<double>& uvCoords)
+qbVector<double> RT::Texture::Image::GetColor(const qbVector<double>& uvCoords)
 {
   qbVector<double> outputColor{4};
 
@@ -94,7 +93,7 @@ qbRT::Texture::Image::GetColor(const qbVector<double>& uvCoords)
   return outputColor;
 }
 
-bool qbRT::Texture::Image::LoadImage(std::string fileName)
+bool RT::Texture::Image::LoadImage(std::string fileName)
 {
   if (m_imageLoaded)
     SDL_FreeSurface(m_imageSurface);

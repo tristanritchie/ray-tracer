@@ -5,11 +5,9 @@
 #include "./qbTextures/image.hpp"
 
 // The constructor.
-qbRT::Scene::Scene()
+RT::Scene::Scene()
 {
-  // **************************************************************************************
-  // Configure the camera.
-  // **************************************************************************************
+
   m_camera.SetPosition(qbVector<double>{std::vector<double>{2.0, -5.0, 0.25}});
   m_camera.SetLookAt(qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}});
   m_camera.SetUp(qbVector<double>{std::vector<double>{0.0, 0.0, 1.0}});
@@ -17,23 +15,14 @@ qbRT::Scene::Scene()
   m_camera.SetAspect(16.0 / 9.0);
   m_camera.UpdateCameraGeometry();
 
-  // **************************************************************************************
-  // Setup ambient lightling.
-  // **************************************************************************************
-  qbRT::MaterialBase::m_ambientColor = std::vector<double>{1.0, 1.0, 1.0};
-  qbRT::MaterialBase::m_ambientIntensity = 0.2;
+  RT::MaterialBase::m_ambientColor = std::vector<double>{1.0, 1.0, 1.0};
+  RT::MaterialBase::m_ambientIntensity = 0.2;
 
-  // **************************************************************************************
-  // Create some textures.
-  // **************************************************************************************
   auto floorTexture =
-      std::make_shared<qbRT::Texture::Checker>(qbRT::Texture::Checker());
+      std::make_shared<RT::Texture::Checker>(RT::Texture::Checker());
   auto imageTexture =
-      std::make_shared<qbRT::Texture::Image>(qbRT::Texture::Image());
+      std::make_shared<RT::Texture::Image>(RT::Texture::Image());
 
-  // **************************************************************************************
-  // Setup the textures.
-  // **************************************************************************************
   floorTexture->SetTransform(qbVector<double>{std::vector<double>{0.0, 0.0}},
                              0.0,
                              qbVector<double>{std::vector<double>{16.0, 16.0}});
@@ -43,25 +32,19 @@ qbRT::Scene::Scene()
                              0.0,
                              qbVector<double>{std::vector<double>{1.0, 1.0}});
 
-  // **************************************************************************************
-  // Create some materials.
-  // **************************************************************************************
   auto floorMaterial =
-      std::make_shared<qbRT::SimpleMaterial>(qbRT::SimpleMaterial());
+      std::make_shared<RT::SimpleMaterial>(RT::SimpleMaterial());
   auto imageMaterial =
-      std::make_shared<qbRT::SimpleMaterial>(qbRT::SimpleMaterial());
+      std::make_shared<RT::SimpleMaterial>(RT::SimpleMaterial());
   auto sphereMaterial =
-      std::make_shared<qbRT::SimpleMaterial>(qbRT::SimpleMaterial());
+      std::make_shared<RT::SimpleMaterial>(RT::SimpleMaterial());
   auto sphereMaterial2 =
-      std::make_shared<qbRT::SimpleMaterial>(qbRT::SimpleMaterial());
+      std::make_shared<RT::SimpleMaterial>(RT::SimpleMaterial());
   auto sphereMaterial3 =
-      std::make_shared<qbRT::SimpleMaterial>(qbRT::SimpleMaterial());
+      std::make_shared<RT::SimpleMaterial>(RT::SimpleMaterial());
   auto glassMaterial =
-      std::make_shared<qbRT::SimpleRefractive>(qbRT::SimpleRefractive());
+      std::make_shared<RT::SimpleRefractive>(RT::SimpleRefractive());
 
-  // **************************************************************************************
-  // Setup the materials.
-  // **************************************************************************************
   floorMaterial->m_baseColor =
       qbVector<double>{std::vector<double>{1.0, 1.0, 1.0}};
   floorMaterial->m_reflectivity = 0.25;
@@ -99,51 +82,51 @@ qbRT::Scene::Scene()
   // **************************************************************************************
   // Create and setup objects.
   // **************************************************************************************
-  auto floor = std::make_shared<qbRT::ObjPlane>(qbRT::ObjPlane());
+  auto floor = std::make_shared<RT::ObjPlane>(RT::ObjPlane());
   floor->SetTransformMatrix(
-      qbRT::GTform{qbVector<double>{std::vector<double>{0.0, 0.0, 1.0}},
-                   qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}},
-                   qbVector<double>{std::vector<double>{16.0, 16.0, 1.0}}});
+      RT::GTform{qbVector<double>{std::vector<double>{0.0, 0.0, 1.0}},
+                 qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}},
+                 qbVector<double>{std::vector<double>{16.0, 16.0, 1.0}}});
   floor->AssignMaterial(floorMaterial);
 
   // **************************************************************************************
-  auto imagePlane = std::make_shared<qbRT::ObjPlane>(qbRT::ObjPlane());
+  auto imagePlane = std::make_shared<RT::ObjPlane>(RT::ObjPlane());
   imagePlane->SetTransformMatrix(
-      qbRT::GTform{qbVector<double>{std::vector<double>{0.0, 5.0, -0.75}},
-                   qbVector<double>{std::vector<double>{-M_PI / 2.0, 0.0, 0.0}},
-                   qbVector<double>{std::vector<double>{1.75, 1.75, 1.0}}});
+      RT::GTform{qbVector<double>{std::vector<double>{0.0, 5.0, -0.75}},
+                 qbVector<double>{std::vector<double>{-M_PI / 2.0, 0.0, 0.0}},
+                 qbVector<double>{std::vector<double>{1.75, 1.75, 1.0}}});
   imagePlane->AssignMaterial(imageMaterial);
 
   // **************************************************************************************
-  auto sphere = std::make_shared<qbRT::ObjSphere>(qbRT::ObjSphere());
+  auto sphere = std::make_shared<RT::ObjSphere>(RT::ObjSphere());
   sphere->SetTransformMatrix(
-      qbRT::GTform{qbVector<double>{std::vector<double>{-2.0, -2.0, 0.25}},
-                   qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}},
-                   qbVector<double>{std::vector<double>{0.75, 0.75, 0.75}}});
+      RT::GTform{qbVector<double>{std::vector<double>{-2.0, -2.0, 0.25}},
+                 qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}},
+                 qbVector<double>{std::vector<double>{0.75, 0.75, 0.75}}});
   sphere->AssignMaterial(sphereMaterial);
 
   // **************************************************************************************
-  auto sphere2 = std::make_shared<qbRT::ObjSphere>(qbRT::ObjSphere());
+  auto sphere2 = std::make_shared<RT::ObjSphere>(RT::ObjSphere());
   sphere2->SetTransformMatrix(
-      qbRT::GTform{qbVector<double>{std::vector<double>{-2.0, -0.5, 0.25}},
-                   qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}},
-                   qbVector<double>{std::vector<double>{0.75, 0.75, 0.75}}});
+      RT::GTform{qbVector<double>{std::vector<double>{-2.0, -0.5, 0.25}},
+                 qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}},
+                 qbVector<double>{std::vector<double>{0.75, 0.75, 0.75}}});
   sphere2->AssignMaterial(sphereMaterial2);
 
   // **************************************************************************************
-  auto sphere3 = std::make_shared<qbRT::ObjSphere>(qbRT::ObjSphere());
+  auto sphere3 = std::make_shared<RT::ObjSphere>(RT::ObjSphere());
   sphere3->SetTransformMatrix(
-      qbRT::GTform{qbVector<double>{std::vector<double>{-2.0, -1.25, -1.0}},
-                   qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}},
-                   qbVector<double>{std::vector<double>{0.75, 0.75, 0.75}}});
+      RT::GTform{qbVector<double>{std::vector<double>{-2.0, -1.25, -1.0}},
+                 qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}},
+                 qbVector<double>{std::vector<double>{0.75, 0.75, 0.75}}});
   sphere3->AssignMaterial(sphereMaterial3);
 
   // **************************************************************************************
-  auto sphere4 = std::make_shared<qbRT::ObjSphere>(qbRT::ObjSphere());
+  auto sphere4 = std::make_shared<RT::ObjSphere>(RT::ObjSphere());
   sphere4->SetTransformMatrix(
-      qbRT::GTform{qbVector<double>{std::vector<double>{2.0, -1.25, 0.25}},
-                   qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}},
-                   qbVector<double>{std::vector<double>{0.75, 0.75, 0.75}}});
+      RT::GTform{qbVector<double>{std::vector<double>{2.0, -1.25, 0.25}},
+                 qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}},
+                 qbVector<double>{std::vector<double>{0.75, 0.75, 0.75}}});
   sphere4->AssignMaterial(glassMaterial);
 
   // **************************************************************************************
@@ -159,14 +142,14 @@ qbRT::Scene::Scene()
   // **************************************************************************************
   // Construct and setup the lights.
   // **************************************************************************************
-  m_lightList.push_back(std::make_shared<qbRT::PointLight>(qbRT::PointLight()));
+  m_lightList.push_back(std::make_shared<RT::PointLight>(RT::PointLight()));
   m_lightList.at(0)->m_location =
       qbVector<double>{std::vector<double>{3.0, -10.0, -5.0}};
   m_lightList.at(0)->m_color =
       qbVector<double>{std::vector<double>{1.0, 1.0, 1.0}};
   m_lightList.at(0)->m_intensity = 4.0;
 
-  m_lightList.push_back(std::make_shared<qbRT::PointLight>(qbRT::PointLight()));
+  m_lightList.push_back(std::make_shared<RT::PointLight>(RT::PointLight()));
   m_lightList.at(1)->m_location =
       qbVector<double>{std::vector<double>{0.0, -10.0, -5.0}};
   m_lightList.at(1)->m_color =
@@ -175,14 +158,14 @@ qbRT::Scene::Scene()
 }
 
 // Function to perform the rendering.
-bool qbRT::Scene::Render(Image& outputImage)
+bool RT::Scene::Render(Image& outputImage)
 {
   // Get the dimensions of the output image.
   int xSize = outputImage.GetXSize();
   int ySize = outputImage.GetYSize();
 
   // Loop over each pixel in our image.
-  qbRT::Ray cameraRay;
+  RT::Ray cameraRay;
   qbVector<double> intPoint(3);
   qbVector<double> localNormal(3);
   qbVector<double> localColor(3);
@@ -207,7 +190,7 @@ bool qbRT::Scene::Render(Image& outputImage)
       m_camera.GenerateRay(normX, normY, cameraRay);
 
       // Test for intersections with all objects in the scene.
-      std::shared_ptr<qbRT::ObjectBase> closestObject;
+      std::shared_ptr<RT::ObjectBase> closestObject;
       qbVector<double> closestIntPoint{3};
       qbVector<double> closestLocalNormal{3};
       qbVector<double> closestLocalColor{3};
@@ -223,7 +206,7 @@ bool qbRT::Scene::Render(Image& outputImage)
         if (closestObject->m_hasMaterial)
         {
           // Use the material to compute the color.
-          qbRT::MaterialBase::m_reflectionRayCount = 0;
+          RT::MaterialBase::m_reflectionRayCount = 0;
           qbVector<double> color = closestObject->m_pMaterial->ComputeColor(
               m_objectList, m_lightList, closestObject, closestIntPoint,
               closestLocalNormal, cameraRay);
@@ -233,7 +216,7 @@ bool qbRT::Scene::Render(Image& outputImage)
         else
         {
           // Use the basic method to compute the color.
-          qbVector<double> matColor = qbRT::MaterialBase::ComputeDiffuseColor(
+          qbVector<double> matColor = RT::MaterialBase::ComputeDiffuseColor(
               m_objectList, m_lightList, closestObject, closestIntPoint,
               closestLocalNormal, closestObject->m_baseColor);
           outputImage.SetPixel(x, y, matColor.GetElement(0),
@@ -248,11 +231,11 @@ bool qbRT::Scene::Render(Image& outputImage)
 }
 
 // Function to cast a ray into the scene.
-bool qbRT::Scene::CastRay(qbRT::Ray& castRay,
-                          std::shared_ptr<qbRT::ObjectBase>& closestObject,
-                          qbVector<double>& closestIntPoint,
-                          qbVector<double>& closestLocalNormal,
-                          qbVector<double>& closestLocalColor)
+bool RT::Scene::CastRay(RT::Ray& castRay,
+                        std::shared_ptr<RT::ObjectBase>& closestObject,
+                        qbVector<double>& closestIntPoint,
+                        qbVector<double>& closestLocalNormal,
+                        qbVector<double>& closestLocalColor)
 {
   qbVector<double> intPoint{3};
   qbVector<double> localNormal{3};

@@ -25,20 +25,20 @@ Copyright (c) 2021 Michael Bennett
 #include "pointlight.hpp"
 
 // Default constructor.
-qbRT::PointLight::PointLight()
+RT::PointLight::PointLight()
 {
   m_color = qbVector<double>{std::vector<double>{1.0, 1.0, 1.0}};
   m_intensity = 1.0;
 }
 
 // Destructor.
-qbRT::PointLight::~PointLight() {}
+RT::PointLight::~PointLight() {}
 
 // Function to compute illumination.
-bool qbRT::PointLight::ComputeIllumination(
+bool RT::PointLight::ComputeIllumination(
     const qbVector<double>& intPoint, const qbVector<double>& localNormal,
-    const std::vector<std::shared_ptr<qbRT::ObjectBase>>& objectList,
-    const std::shared_ptr<qbRT::ObjectBase>& currentObject,
+    const std::vector<std::shared_ptr<RT::ObjectBase>>& objectList,
+    const std::shared_ptr<RT::ObjectBase>& currentObject,
     qbVector<double>& color, double& intensity)
 {
   // Construct a vector pointing from the intersection point to the light.
@@ -49,7 +49,7 @@ bool qbRT::PointLight::ComputeIllumination(
   qbVector<double> startPoint = intPoint;
 
   // Construct a ray from the point of intersection to the light.
-  qbRT::Ray lightRay(startPoint, startPoint + lightDir);
+  RT::Ray lightRay(startPoint, startPoint + lightDir);
 
   /* Check for intersections with all of the objects
           in the scene, except for the current one. */

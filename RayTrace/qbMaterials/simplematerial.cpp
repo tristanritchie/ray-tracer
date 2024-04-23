@@ -1,16 +1,16 @@
 #include "simplematerial.hpp"
 
-qbRT::SimpleMaterial::SimpleMaterial() {}
+RT::SimpleMaterial::SimpleMaterial() {}
 
-qbRT::SimpleMaterial::~SimpleMaterial() {}
+RT::SimpleMaterial::~SimpleMaterial() {}
 
 // Function to return the color.
-qbVector<double> qbRT::SimpleMaterial::ComputeColor(
-    const std::vector<std::shared_ptr<qbRT::ObjectBase>>& objectList,
-    const std::vector<std::shared_ptr<qbRT::LightBase>>& lightList,
-    const std::shared_ptr<qbRT::ObjectBase>& currentObject,
+qbVector<double> RT::SimpleMaterial::ComputeColor(
+    const std::vector<std::shared_ptr<RT::ObjectBase>>& objectList,
+    const std::vector<std::shared_ptr<RT::LightBase>>& lightList,
+    const std::shared_ptr<RT::ObjectBase>& currentObject,
     const qbVector<double>& intPoint, const qbVector<double>& localNormal,
-    const qbRT::Ray& cameraRay)
+    const RT::Ray& cameraRay)
 {
   // Define the initial material colors.
   qbVector<double> matColor{3};
@@ -47,11 +47,11 @@ qbVector<double> qbRT::SimpleMaterial::ComputeColor(
 }
 
 // Function to compute the specular highlights.
-qbVector<double> qbRT::SimpleMaterial::ComputeSpecular(
-    const std::vector<std::shared_ptr<qbRT::ObjectBase>>& objectList,
-    const std::vector<std::shared_ptr<qbRT::LightBase>>& lightList,
+qbVector<double> RT::SimpleMaterial::ComputeSpecular(
+    const std::vector<std::shared_ptr<RT::ObjectBase>>& objectList,
+    const std::vector<std::shared_ptr<RT::LightBase>>& lightList,
     const qbVector<double>& intPoint, const qbVector<double>& localNormal,
-    const qbRT::Ray& cameraRay)
+    const RT::Ray& cameraRay)
 {
   qbVector<double> spcColor{3};
   double red = 0.0;
@@ -72,7 +72,7 @@ qbVector<double> qbRT::SimpleMaterial::ComputeSpecular(
     qbVector<double> startPoint = intPoint + (lightDir * 0.001);
 
     // Construct a ray from the point of intersection to the light.
-    qbRT::Ray lightRay(startPoint, startPoint + lightDir);
+    RT::Ray lightRay(startPoint, startPoint + lightDir);
 
     /* Loop through all objects in the scene to check if any
             obstruct light from this source. */

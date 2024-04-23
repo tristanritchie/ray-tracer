@@ -3,7 +3,7 @@
 
 #include "./qbLinAlg/qbVector.h"
 
-namespace qbRT
+namespace RT
 {
 class Ray
 {
@@ -19,6 +19,6 @@ public:
   qbVector<double> m_point2{3};
   qbVector<double> m_lab{3};
 };
-} // namespace qbRT
+} // namespace RT
 
 #endif

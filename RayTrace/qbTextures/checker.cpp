@@ -1,17 +1,17 @@
 #include "checker.hpp"
 
 // Constructor / destructor.
-qbRT::Texture::Checker::Checker()
+RT::Texture::Checker::Checker()
 {
   m_color1 = qbVector<double>{std::vector<double>{1.0, 1.0, 1.0, 1.0}};
   m_color2 = qbVector<double>{std::vector<double>{0.2, 0.2, 0.2, 1.0}};
 }
 
-qbRT::Texture::Checker::~Checker() {}
+RT::Texture::Checker::~Checker() {}
 
 // Function to return the color.
 qbVector<double>
-qbRT::Texture::Checker::GetColor(const qbVector<double>& uvCoords)
+RT::Texture::Checker::GetColor(const qbVector<double>& uvCoords)
 {
   // Apply the local transform to the (u,v) coordinates.
   qbVector<double> inputLoc = uvCoords;
@@ -35,8 +35,8 @@ qbRT::Texture::Checker::GetColor(const qbVector<double>& uvCoords)
 }
 
 // Function to set the colors.
-void qbRT::Texture::Checker::SetColor(const qbVector<double>& inputColor1,
-                                      const qbVector<double>& inputColor2)
+void RT::Texture::Checker::SetColor(const qbVector<double>& inputColor1,
+                                    const qbVector<double>& inputColor2)
 {
   m_color1 = inputColor1;
   m_color2 = inputColor2;

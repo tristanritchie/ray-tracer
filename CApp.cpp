@@ -38,7 +38,7 @@ bool CApp::OnInit()
     m_scene.Render(m_image);
 
     // Setup a texture.
-    /*qbRT::Texture::Image testTexture;
+    /*RT::Texture::Image testTexture;
     testTexture.LoadImage("testImage.bmp");
     testTexture.SetTransform(	qbVector<double>{std::vector<double>{0.0, 0.0}},
                                                                                                             0.0,

@@ -3,7 +3,7 @@
 
 #include "texturebase.hpp"
 
-namespace qbRT
+namespace RT
 {
 namespace Texture
 {
@@ -26,6 +26,6 @@ private:
   qbVector<double> m_color2{4};
 };
 } // namespace Texture
-} // namespace qbRT
+} // namespace RT
 
 #endif
