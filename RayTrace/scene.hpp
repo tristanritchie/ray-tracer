@@ -1,11 +1,11 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-#include "./qbLights/pointlight.hpp"
-#include "./qbPrimatives/cone.hpp"
-#include "./qbPrimatives/cylinder.hpp"
-#include "./qbPrimatives/objplane.hpp"
-#include "./qbPrimatives/objsphere.hpp"
+#include "./rtLights/pointlight.hpp"
+#include "./rtPrimatives/cone.hpp"
+#include "./rtPrimatives/cylinder.hpp"
+#include "./rtPrimatives/objplane.hpp"
+#include "./rtPrimatives/objsphere.hpp"
 #include "camera.hpp"
 #include "image.hpp"
 #include <SDL2/SDL.h>
@@ -25,9 +25,9 @@ public:
 
   // Function to cast a ray into the scene.
   bool CastRay(RT::Ray& castRay, std::shared_ptr<RT::ObjectBase>& closestObject,
-               qbVector<double>& closestIntPoint,
-               qbVector<double>& closestLocalNormal,
-               qbVector<double>& closestLocalColor);
+               rtVector<double>& closestIntPoint,
+               rtVector<double>& closestLocalNormal,
+               rtVector<double>& closestLocalColor);
 
   // Private functions.
 private:

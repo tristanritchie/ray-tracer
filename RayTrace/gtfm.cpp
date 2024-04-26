@@ -12,15 +12,15 @@ RT::GTform::GTform()
 RT::GTform::~GTform() {}
 
 // Construct from three vectors.
-RT::GTform::GTform(const qbVector<double>& translation,
-                   const qbVector<double>& rotation,
-                   const qbVector<double>& scale)
+RT::GTform::GTform(const rtVector<double>& translation,
+                   const rtVector<double>& rotation,
+                   const rtVector<double>& scale)
 {
   SetTransform(translation, rotation, scale);
 }
 
 // Construct from a pair of matrices.
-RT::GTform::GTform(const qbMatrix2<double>& fwd, const qbMatrix2<double>& bck)
+RT::GTform::GTform(const rtMatrix2<double>& fwd, const rtMatrix2<double>& bck)
 {
   // Verify that the inputs are 4x4.
   if ((fwd.GetNumRows() != 4) || (fwd.GetNumCols() != 4) ||
@@ -35,16 +35,16 @@ RT::GTform::GTform(const qbMatrix2<double>& fwd, const qbMatrix2<double>& bck)
 }
 
 // Function to set the transform.
-void RT::GTform::SetTransform(const qbVector<double>& translation,
-                              const qbVector<double>& rotation,
-                              const qbVector<double>& scale)
+void RT::GTform::SetTransform(const rtVector<double>& translation,
+                              const rtVector<double>& rotation,
+                              const rtVector<double>& scale)
 {
   // Define a matrix for each component of the transform.
-  qbMatrix2<double> translationMatrix{4, 4};
-  qbMatrix2<double> rotationMatrixX{4, 4};
-  qbMatrix2<double> rotationMatrixY{4, 4};
-  qbMatrix2<double> rotationMatrixZ{4, 4};
-  qbMatrix2<double> scaleMatrix{4, 4};
+  rtMatrix2<double> translationMatrix{4, 4};
+  rtMatrix2<double> rotationMatrixX{4, 4};
+  rtMatrix2<double> rotationMatrixY{4, 4};
+  rtMatrix2<double> rotationMatrixZ{4, 4};
+  rtMatrix2<double> scaleMatrix{4, 4};
 
   // Set these to identity.
   translationMatrix.SetToIdentity();
@@ -90,8 +90,8 @@ void RT::GTform::SetTransform(const qbVector<double>& translation,
 }
 
 // Functions to return the transform matrices.
-qbMatrix2<double> RT::GTform::GetForward() { return m_fwdtfm; }
-qbMatrix2<double> RT::GTform::GetBackward() { return m_bcktfm; }
+rtMatrix2<double> RT::GTform::GetForward() { return m_fwdtfm; }
+rtMatrix2<double> RT::GTform::GetBackward() { return m_bcktfm; }
 
 // Function to apply the transform.
 RT::Ray RT::GTform::Apply(const RT::Ray& inputRay, bool dirFlag)
@@ -117,17 +117,17 @@ RT::Ray RT::GTform::Apply(const RT::Ray& inputRay, bool dirFlag)
   return outputRay;
 }
 
-qbVector<double> RT::GTform::Apply(const qbVector<double>& inputVector,
+rtVector<double> RT::GTform::Apply(const rtVector<double>& inputVector,
                                    bool dirFlag)
 {
   // Convert inputVector to a 4-element vector.
   std::vector<double> tempData{inputVector.GetElement(0),
                                inputVector.GetElement(1),
                                inputVector.GetElement(2), 1.0};
-  qbVector<double> tempVector{tempData};
+  rtVector<double> tempVector{tempData};
 
   // Create a vector for the result.
-  qbVector<double> resultVector;
+  rtVector<double> resultVector;
 
   if (dirFlag)
   {
@@ -141,7 +141,7 @@ qbVector<double> RT::GTform::Apply(const qbVector<double>& inputVector,
   }
 
   // Reform the output as a 3-element vector.
-  qbVector<double> outputVector{std::vector<double>{
+  rtVector<double> outputVector{std::vector<double>{
       resultVector.GetElement(0), resultVector.GetElement(1),
       resultVector.GetElement(2)}};
 
@@ -154,10 +154,10 @@ namespace RT
 RT::GTform operator*(const RT::GTform& lhs, const RT::GTform& rhs)
 {
   // Form the product of the two forward transforms.
-  qbMatrix2<double> fwdResult = lhs.m_fwdtfm * rhs.m_fwdtfm;
+  rtMatrix2<double> fwdResult = lhs.m_fwdtfm * rhs.m_fwdtfm;
 
   // Compute the backward transform as the inverse of the forward transform.
-  qbMatrix2<double> bckResult = fwdResult;
+  rtMatrix2<double> bckResult = fwdResult;
   bckResult.Inverse();
 
   // Form the final result.
@@ -193,7 +193,7 @@ void RT::GTform::PrintMatrix(bool dirFlag)
   }
 }
 
-void RT::GTform::Print(const qbMatrix2<double>& matrix)
+void RT::GTform::Print(const rtMatrix2<double>& matrix)
 {
   int nRows = matrix.GetNumRows();
   int nCols = matrix.GetNumCols();
@@ -209,7 +209,7 @@ void RT::GTform::Print(const qbMatrix2<double>& matrix)
 }
 
 // Function to print vectors.
-void RT::GTform::PrintVector(const qbVector<double>& inputVector)
+void RT::GTform::PrintVector(const rtVector<double>& inputVector)
 {
   int nRows = inputVector.GetNumDims();
   for (int row = 0; row < nRows; ++row)

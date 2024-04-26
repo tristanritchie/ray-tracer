@@ -3,9 +3,9 @@
 
 #include "./RayTrace/camera.hpp"
 #include "./RayTrace/image.hpp"
-#include "./RayTrace/qbTextures/checker.hpp"
-#include "./RayTrace/qbTextures/flat.hpp"
-#include "./RayTrace/qbTextures/image.hpp"
+#include "./RayTrace/rtTextures/checker.hpp"
+#include "./RayTrace/rtTextures/flat.hpp"
+#include "./RayTrace/rtTextures/image.hpp"
 #include "./RayTrace/scene.hpp"
 #include <SDL2/SDL.h>
 
@@ -22,7 +22,7 @@ public:
   void OnExit();
 
 private:
-  void PrintVector(const qbVector<double>& inputVector);
+  void PrintVector(const rtVector<double>& inputVector);
 
 private:
   // An instance of the Image class to store the image.

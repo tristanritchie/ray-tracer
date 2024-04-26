@@ -1,5 +1,5 @@
 #include "CApp.hpp"
-#include "./RayTrace/qbLinAlg/qbVector.h"
+#include "./RayTrace/rtLinAlg/rtVector.h"
 
 // The constructor (default)
 CApp::CApp()
@@ -40,9 +40,9 @@ bool CApp::OnInit()
     // Setup a texture.
     /*RT::Texture::Image testTexture;
     testTexture.LoadImage("testImage.bmp");
-    testTexture.SetTransform(	qbVector<double>{std::vector<double>{0.0, 0.0}},
+    testTexture.SetTransform(	rtVector<double>{std::vector<double>{0.0, 0.0}},
                                                                                                             0.0,
-                                                                                                            qbVector<double>{std::vector<double>{4.0, 4.0}}	);
+                                                                                                            rtVector<double>{std::vector<double>{4.0, 4.0}}	);
 
     // Render the texture.
     for (int y=0; y<ySize; ++y)
@@ -53,10 +53,10 @@ bool CApp::OnInit()
                     double u = (static_cast<double>(x) /
     (static_cast<double>(xSize) / 2.0)) - 1.0; double v =
     (static_cast<double>(y) / (static_cast<double>(ySize) / 2.0)) - 1.0;
-                    qbVector<double> uvCoords {std::vector<double> {u, v}};
+                    rtVector<double> uvCoords {std::vector<double> {u, v}};
 
                     // Get the color from the texture.
-                    qbVector<double> pixelColor =
+                    rtVector<double> pixelColor =
     testTexture.GetColor(uvCoords);
 
                     // Update this pixel of the image.
@@ -139,7 +139,7 @@ void CApp::OnExit()
 }
 
 // PRIVATE FUNCTIONS.
-void CApp::PrintVector(const qbVector<double>& inputVector)
+void CApp::PrintVector(const rtVector<double>& inputVector)
 {
   int nRows = inputVector.GetNumDims();
   for (int row = 0; row < nRows; ++row)

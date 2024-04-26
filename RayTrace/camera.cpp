@@ -5,25 +5,25 @@
 RT::Camera::Camera()
 {
   // The default constructor.
-  m_cameraPosition = qbVector<double>{std::vector<double>{0.0, -10.0, 0.0}};
-  m_cameraLookAt = qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}};
-  m_cameraUp = qbVector<double>{std::vector<double>{0.0, 0.0, 1.0}};
+  m_cameraPosition = rtVector<double>{std::vector<double>{0.0, -10.0, 0.0}};
+  m_cameraLookAt = rtVector<double>{std::vector<double>{0.0, 0.0, 0.0}};
+  m_cameraUp = rtVector<double>{std::vector<double>{0.0, 0.0, 1.0}};
   m_cameraLength = 1.0;
   m_cameraHorzSize = 1.0;
   m_cameraAspectRatio = 1.0;
 }
 
-void RT::Camera::SetPosition(const qbVector<double>& newPosition)
+void RT::Camera::SetPosition(const rtVector<double>& newPosition)
 {
   m_cameraPosition = newPosition;
 }
 
-void RT::Camera::SetLookAt(const qbVector<double>& newLookAt)
+void RT::Camera::SetLookAt(const rtVector<double>& newLookAt)
 {
   m_cameraLookAt = newLookAt;
 }
 
-void RT::Camera::SetUp(const qbVector<double>& upVector)
+void RT::Camera::SetUp(const rtVector<double>& upVector)
 {
   m_cameraUp = upVector;
 }
@@ -41,13 +41,13 @@ void RT::Camera::SetAspect(double newAspect)
 }
 
 // Method to return the position of the camera.
-qbVector<double> RT::Camera::GetPosition() { return m_cameraPosition; }
+rtVector<double> RT::Camera::GetPosition() { return m_cameraPosition; }
 
 // Method to return the LookAt of the camera.
-qbVector<double> RT::Camera::GetLookAt() { return m_cameraLookAt; }
+rtVector<double> RT::Camera::GetLookAt() { return m_cameraLookAt; }
 
 // Method to return the up vector of the camera.
-qbVector<double> RT::Camera::GetUp() { return m_cameraUp; }
+rtVector<double> RT::Camera::GetUp() { return m_cameraUp; }
 
 // Method to return the length of the camera.
 double RT::Camera::GetLength() { return m_cameraLength; }
@@ -59,13 +59,13 @@ double RT::Camera::GetHorzSize() { return m_cameraHorzSize; }
 double RT::Camera::GetAspect() { return m_cameraAspectRatio; }
 
 // Method to return the U vector.
-qbVector<double> RT::Camera::GetU() { return m_projectionScreenU; }
+rtVector<double> RT::Camera::GetU() { return m_projectionScreenU; }
 
 // Method to return the V vector.
-qbVector<double> RT::Camera::GetV() { return m_projectionScreenV; }
+rtVector<double> RT::Camera::GetV() { return m_projectionScreenV; }
 
 // Method to return the projection screen centre.
-qbVector<double> RT::Camera::GetScreenCentre()
+rtVector<double> RT::Camera::GetScreenCentre()
 {
   return m_projectionScreenCentre;
 }
@@ -78,10 +78,10 @@ void RT::Camera::UpdateCameraGeometry()
   m_alignmentVector.Normalize();
 
   // Second, compute the U and V vectors.
-  m_projectionScreenU = qbVector<double>::cross(m_alignmentVector, m_cameraUp);
+  m_projectionScreenU = rtVector<double>::cross(m_alignmentVector, m_cameraUp);
   m_projectionScreenU.Normalize();
   m_projectionScreenV =
-      qbVector<double>::cross(m_projectionScreenU, m_alignmentVector);
+      rtVector<double>::cross(m_projectionScreenU, m_alignmentVector);
   m_projectionScreenV.Normalize();
 
   // Thirdly, compute the positon of the centre point of the screen.
@@ -98,9 +98,9 @@ bool RT::Camera::GenerateRay(float proScreenX, float proScreenY,
                              RT::Ray& cameraRay)
 {
   // Compute the location of the screen point in world coordinates.
-  qbVector<double> screenWorldPart1 =
+  rtVector<double> screenWorldPart1 =
       m_projectionScreenCentre + (m_projectionScreenU * proScreenX);
-  qbVector<double> screenWorldCoordinate =
+  rtVector<double> screenWorldCoordinate =
       screenWorldPart1 + (m_projectionScreenV * proScreenY);
 
   // Use this point along with the camera position to compute the ray.

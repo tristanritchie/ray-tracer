@@ -1,7 +1,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "./qbLinAlg/qbVector.h"
+#include "./rtLinAlg/rtVector.h"
 #include "ray.hpp"
 
 namespace RT
@@ -13,20 +13,20 @@ public:
   Camera();
 
   // Functions to set camera parameters.
-  void SetPosition(const qbVector<double>& newPosition);
-  void SetLookAt(const qbVector<double>& newLookAt);
-  void SetUp(const qbVector<double>& upVector);
+  void SetPosition(const rtVector<double>& newPosition);
+  void SetLookAt(const rtVector<double>& newLookAt);
+  void SetUp(const rtVector<double>& upVector);
   void SetLength(double newLength);
   void SetHorzSize(double newSize);
   void SetAspect(double newAspect);
 
   // Functions to return camera parameters.
-  qbVector<double> GetPosition();
-  qbVector<double> GetLookAt();
-  qbVector<double> GetUp();
-  qbVector<double> GetU();
-  qbVector<double> GetV();
-  qbVector<double> GetScreenCentre();
+  rtVector<double> GetPosition();
+  rtVector<double> GetLookAt();
+  rtVector<double> GetUp();
+  rtVector<double> GetU();
+  rtVector<double> GetV();
+  rtVector<double> GetScreenCentre();
   double GetLength();
   double GetHorzSize();
   double GetAspect();
@@ -38,17 +38,17 @@ public:
   void UpdateCameraGeometry();
 
 private:
-  qbVector<double> m_cameraPosition{3};
-  qbVector<double> m_cameraLookAt{3};
-  qbVector<double> m_cameraUp{3};
+  rtVector<double> m_cameraPosition{3};
+  rtVector<double> m_cameraLookAt{3};
+  rtVector<double> m_cameraUp{3};
   double m_cameraLength;
   double m_cameraHorzSize;
   double m_cameraAspectRatio;
 
-  qbVector<double> m_alignmentVector{3};
-  qbVector<double> m_projectionScreenU{3};
-  qbVector<double> m_projectionScreenV{3};
-  qbVector<double> m_projectionScreenCentre{3};
+  rtVector<double> m_alignmentVector{3};
+  rtVector<double> m_projectionScreenU{3};
+  rtVector<double> m_projectionScreenV{3};
+  rtVector<double> m_projectionScreenCentre{3};
 };
 } // namespace RT
 

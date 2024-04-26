@@ -15,22 +15,24 @@ set(SOURCES main.cpp
             RayTrace/gtfm.cpp
             RayTrace/ray.cpp
             RayTrace/scene.cpp
-            RayTrace/qbLights/lightbase.cpp
-            RayTrace/qbLights/pointlight.cpp
-            RayTrace/qbMaterials/materialbase.cpp
-            RayTrace/qbMaterials/simplematerial.cpp
-            RayTrace/qbMaterials/simplerefractive.cpp
-            RayTrace/qbPrimatives/cone.cpp
-            RayTrace/qbPrimatives/cylinder.cpp
-            RayTrace/qbPrimatives/objectbase.cpp
-            RayTrace/qbPrimatives/objplane.cpp
-            RayTrace/qbPrimatives/objsphere.cpp
-            RayTrace/qbTextures/checker.cpp
-            RayTrace/qbTextures/flat.cpp
-            RayTrace/qbTextures/image.cpp
-            RayTrace/qbTextures/texturebase.cpp
+            RayTrace/rtLights/lightbase.cpp
+            RayTrace/rtLights/pointlight.cpp
+            RayTrace/rtMaterials/materialbase.cpp
+            RayTrace/rtMaterials/simplematerial.cpp
+            RayTrace/rtMaterials/simplerefractive.cpp
+            RayTrace/rtPrimatives/cone.cpp
+            RayTrace/rtPrimatives/cylinder.cpp
+            RayTrace/rtPrimatives/objectbase.cpp
+            RayTrace/rtPrimatives/objplane.cpp
+            RayTrace/rtPrimatives/objsphere.cpp
+            RayTrace/rtTextures/checker.cpp
+            RayTrace/rtTextures/flat.cpp
+            RayTrace/rtTextures/image.cpp
+            RayTrace/rtTextures/texturebase.cpp
             )
 
 add_executable(RayTracer ${SOURCES}) 
 
 target_link_libraries(RayTracer ${SDL2_LIBRARIES})
+
+set(CMAKE_CXX_FLAGS "-O3")
